@@ -2,7 +2,7 @@
 
 ## Execution
 ```bash
-summarizer.py {input.txt}
+download_and_summarize.sh {input.txt}
 ```
 
 ### Input File Format
