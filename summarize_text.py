@@ -22,14 +22,7 @@ def summarize_text(text):
         model="gpt-4o-mini",
         messages=[
             {"role": "system", "content": "You are an AI that summarizes video transcripts in markdown style."},
-            {"role": "user", "content": f"""
-                {text}\n\n\n
-                Summarize the above text in markdown style.
-                The text is transcribed from speech recognition of English with a Korean accent.
-                Because of this, the text may be inaccurate or incorrect.
-                You must take this into account and summarize it accordingly.
-                Summarize the text with as much detail as possible.
-            """}
+            {"role": "user", "content": f"""{text}\n\n\n---\n\nSummarize the above text in markdown style. The text is transcribed from speech recognition of English with a Korean accent. Because of this, the text may be inaccurate or incorrect. You must take this into account and summarize it accordingly. Summarize the text with as much detail as possible."""}
         ]
     )
     summary = response['choices'][0]['message']['content']
