@@ -22,11 +22,12 @@ def transcribe_audio(audio_path, transcript_path, language='en'):
     print(f"[INFO] Transcription saved to {transcript_path}")
 
 def summarize_text(transcript_path, summary_path, language='en'):
+    with open(transcript_path, "r") as f:
+        text = f.read()
+        
     ENG_TEXT_USER = {"role": "user", "content": f"""{text}\n\n\n---\n\nSummarize the above text in markdown style. The text is transcribed from speech recognition of English with a Korean accent. Because of this, the text may be inaccurate or incorrect. You must take this into account and summarize it accordingly. Summarize the text with as much detail as possible."""}
     KOR_TEXT_USER = {"role": "user", "content": f"""{text}\n\n\n---\n\nSummarize the above text in markdown style in Korean. The text is transcribed from speech recognition of Korean. Because of this, the text may be inaccurate or incorrect. You must take this into account and summarize it accordingly. Summarize the text with as much detail as possible."""}
 
-    with open(transcript_path, "r") as f:
-        text = f.read()
     response = openai.ChatCompletion.create(
         model="gpt-4o-mini",
         messages=[
