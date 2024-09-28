@@ -14,11 +14,20 @@ def extract_audio(video_path, audio_path):
     subprocess.call(command, shell=True, stdin=subprocess.DEVNULL)
     print(f"[INFO] Audio extracted to {audio_path}")
 
-def transcribe_audio(audio_path, transcript_path, language='en'):
-    model = whisper.load_model("small")
-    result = model.transcribe(audio_path, language=language)
+def transcribe_audio(audio_path, transcript_path, language='en', openai=False):
+    if openai:
+        with open(audio_path, "rb") as audio_file:
+            transcription = openai.Audio.transcribe(
+                model="whisper-1",
+                file=audio_file,
+                language=language
+            )
+    else:
+        model = whisper.load_model("small")
+        transcription = model.transcribe(audio_path, language=language)
+
     with open(transcript_path, "w") as f:
-        f.write(result["text"])
+        f.write(transcription["text"])
     print(f"[INFO] Transcription saved to {transcript_path}")
 
 def summarize_text(transcript_path, summary_path, language='en'):
