@@ -1,5 +1,5 @@
 # auto-lecture-summarizer
-Scripts that extracts text from video lectures and summarizes them in English and Korean.
+Scripts that extract text from video lectures and summarize them in English and Korean.
 
 ## Execution
 ```bash
